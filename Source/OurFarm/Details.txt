@@ -1,0 +1,24 @@
+Sizes:
+3.5 Inch:
+	Screen - 320 Width 480 Height
+	Main View - 320 x 2235
+	Scroll -	Expanded: 320 x 2020
+				Togethor: 320 x 265
+
+4 Inch
+	Screen - 320 Width 568 Height
+	Main View - 320 x 2630
+	Scroll -	Expanded: 320 x 2365
+				Togethor: 320 x 302
+
+4.7 Inch
+	Screen - 375 x 667
+	Main View - 375 x 2960
+	Scroll -	Expanded: 375 x 2672
+				Togethor: 375 x 379
+
+5.5 Inch
+	Screen - 414 x 736
+	Main View - 414 x 3425
+	Scroll -	Expanded: 414 x 3085
+				Togethor: 414 x 396
