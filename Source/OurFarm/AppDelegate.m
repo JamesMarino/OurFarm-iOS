@@ -4,6 +4,7 @@
  */
 
 #import "AppDelegate.h"
+@import GoogleMobileAds;
 
 @interface AppDelegate ()
 
@@ -13,6 +14,9 @@
 
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
+    
+    // Initialise AdMob
+    [GADMobileAds configureWithApplicationID:@"ca-app-pub-5973785969162902~8070547745"];
 	
 	CGSize iOSScreenSize = [[UIScreen mainScreen] bounds].size;
 	

@@ -6,11 +6,18 @@
 #import "ViewController.h"
 #import <AVFoundation/AVFoundation.h>
 
+@import GoogleMobileAds;
+@import UIKit;
+
 // Constants
 static int const AmountOfSounds = 13;
 
-@interface ViewController ()
+@interface ViewController () <GADInterstitialDelegate>
 {
+    // Ads
+    GADInterstitial *interstitial;
+    int pressCount;
+    
 	// Animals
 	AVAudioPlayer *chicken;
 	AVAudioPlayer *cow;
@@ -34,71 +41,141 @@ static int const AmountOfSounds = 13;
 - (IBAction)chooksPress:(id)sender
 {
 	[chooks play];
+    [self showAdvert];
 }
 
 - (IBAction)cowPress:(id)sender
 {
 	[cow play];
+    [self showAdvert];
+    
 }
 
 - (IBAction)iCowPress:(id)sender
 {
 	[icow play];
+    [self showAdvert];
 }
 
 - (IBAction)sheepPress:(id)sender
 {
 	[sheep play];
+    [self showAdvert];
 }
 
 - (IBAction)iSheepPress:(id)sender
 {
 	[isheep play];
+    [self showAdvert];
 }
 
 - (IBAction)pigPress:(id)sender
 {
 	[pig play];
+    [self showAdvert];
 }
 
 - (IBAction)iPigPress:(id)sender
 {
 	[ipig play];
+    [self showAdvert];
 }
 
 - (IBAction)chickenPress:(id)sender
 {
 	[chicken play];
+    [self showAdvert];
 }
 
 - (IBAction)iChickenPress:(id)sender
 {
 	[ichicken play];
+    [self showAdvert];
 }
 
 - (IBAction)horsePress:(id)sender
 {
 	[horse play];
+    [self showAdvert];
 }
 
 - (IBAction)iHorsePress:(id)sender
 {
 	[ihorse play];
+    [self showAdvert];
 }
 
 - (IBAction)dogPress:(id)sender
 {
 	[dog play];
+    [self showAdvert];
 }
 
 - (IBAction)iDogPress:(id)sender
 {
 	[idog play];
+    [self showAdvert];
+}
+
+- (void)getAdvert
+{
+    self->interstitial = [[GADInterstitial alloc]
+                          initWithAdUnitID:@"ca-app-pub-5973785969162902/7785097978"];
+    self->interstitial.delegate = self;
+    
+    GADRequest *request = [GADRequest request];
+    [self->interstitial loadRequest:request];
+}
+
+- (void)showAdvert
+{
+    // Incremenet
+    [self incrementAdCountOrReset:NO];
+    
+    if (self->pressCount > 3) {
+        if (self->interstitial.isReady) {
+            [self->interstitial presentFromRootViewController:self];
+        }
+    }
+    
+}
+
+- (int)incrementAdCountOrReset:(BOOL)reset
+{
+    if (reset == YES) {
+        self->pressCount = 0;
+    } else {
+        self->pressCount = self->pressCount + 1;
+    }
+    
+    return self->pressCount;
+}
+
+- (void)interstitialWillDismissScreen:(GADInterstitial *)interstitial
+{
+    [self getAdvert];
+}
+
+- (void)interstitialDidDismissScreen:(GADInterstitial *)interstitial
+{
+    [self showRemoveAds];
+}
+
+- (void)showRemoveAds
+{
+    if (self->pressCount > 3) {
+        [self incrementAdCountOrReset:YES];
+        NSLog(@"Show PopUp");
+    }
 }
 
 - (void)viewDidLoad {
 	[super viewDidLoad];
-	
+    
+    // AdMob
+    [self getAdvert];
+    self->pressCount = 0;
+    
 	// Scroll View Setup
 	{
 	
