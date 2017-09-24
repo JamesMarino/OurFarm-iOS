@@ -5,15 +5,20 @@
 
 #import "ViewController.h"
 #import <AVFoundation/AVFoundation.h>
+#import <StoreKit/StoreKit.h>
 
 @import GoogleMobileAds;
 @import UIKit;
 
 // Constants
 static int const AmountOfSounds = 13;
+static NSString* const RemoveAdsInAppID = @"RemoveAds";
 
-@interface ViewController () <GADInterstitialDelegate>
+@interface ViewController () <GADInterstitialDelegate, SKProductsRequestDelegate, SKPaymentTransactionObserver>
 {
+    // In App Purchase
+    SKProduct *removeAddInAppProduct;
+    
     // Ads
     GADInterstitial *interstitial;
     int pressCount;
@@ -163,14 +168,68 @@ static int const AmountOfSounds = 13;
 
 - (void)showRemoveAds
 {
+    
+    if (removeAddInAppProduct != nil) {
+        
+        NSNumberFormatter *numberFormatter = [[NSNumberFormatter alloc] init];
+        [numberFormatter setFormatterBehavior:NSNumberFormatterBehavior10_4];
+        [numberFormatter setNumberStyle:NSNumberFormatterCurrencyStyle];
+        [numberFormatter setLocale:removeAddInAppProduct.priceLocale];
+        NSString *formattedCurrency = [numberFormatter stringFromNumber:removeAddInAppProduct.price];
+        
+        
+        NSString* message = [NSString stringWithFormat:@"%@ %@",
+                             removeAddInAppProduct.localizedDescription,
+                             formattedCurrency];
+        
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:removeAddInAppProduct.localizedTitle
+                                                        message:message
+                                                       delegate:self
+                                              cancelButtonTitle:@"Remove Ads"
+                                              otherButtonTitles:@"Keep Ads", nil
+                              ];
+        [alert show];
+    
+        
+    }
+    
     if (self->pressCount > 3) {
         [self incrementAdCountOrReset:YES];
         NSLog(@"Show PopUp");
     }
 }
 
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
+    
+    if (buttonIndex == 0) {
+        NSLog(@"Remove Ads Pressed");
+    } else {
+        NSLog(@"Keep Ads Pressed");
+    }
+}
+
+- (void)productsRequest:(SKProductsRequest *)request
+     didReceiveResponse:(SKProductsResponse *)response
+{
+    removeAddInAppProduct = nil;
+    
+    if ([response.products count] > 0) {
+        removeAddInAppProduct = [response.products objectAtIndex:0];
+    }
+}
+
+- (void)request:(SKRequest *)request
+didFailWithError:(NSError *)error
+{
+    removeAddInAppProduct = nil;
+}
+
 - (void)viewDidLoad {
 	[super viewDidLoad];
+    
+    SKProductsRequest *productsRequest = [[SKProductsRequest alloc] initWithProductIdentifiers:[NSSet setWithObject:RemoveAdsInAppID]];
+    productsRequest.delegate = self;
+    [productsRequest start];
     
     // AdMob
     [self getAdvert];
@@ -240,7 +299,11 @@ static int const AmountOfSounds = 13;
 
 - (void)didReceiveMemoryWarning {
 	[super didReceiveMemoryWarning];
-	// Dispose of any resources that can be recreated.
+}
+
+- (void)paymentQueue:(nonnull SKPaymentQueue *)queue updatedTransactions:(nonnull NSArray<SKPaymentTransaction *> *)transactions
+{
+    
 }
 
 @end

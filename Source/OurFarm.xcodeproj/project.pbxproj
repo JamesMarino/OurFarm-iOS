@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		03FA352D62C2F07ED16A17D0 /* libPods-OurFarm.a in Frameworks */ = {isa = PBXBuildFile; fileRef = DFDF9A19C6929F1C011AA1AE /* libPods-OurFarm.a */; };
 		1A5699591ABAF63D00269BD2 /* iPhone4.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1A5699531ABAF63D00269BD2 /* iPhone4.storyboard */; };
 		1A56995A1ABAF63D00269BD2 /* iPhone47.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1A5699551ABAF63D00269BD2 /* iPhone47.storyboard */; };
 		1A56995B1ABAF63D00269BD2 /* iPhone55.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1A5699571ABAF63D00269BD2 /* iPhone55.storyboard */; };
@@ -34,6 +33,7 @@
 		1A5699AC1ABBA06200269BD2 /* pig.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 1A56999F1ABBA06200269BD2 /* pig.mp3 */; };
 		1A5699AD1ABBA06200269BD2 /* sheep.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 1A5699A01ABBA06200269BD2 /* sheep.mp3 */; };
 		1A96326F1ABE841400CDBD98 /* Background16-9.png in Resources */ = {isa = PBXBuildFile; fileRef = 1A96326D1ABE841400CDBD98 /* Background16-9.png */; };
+		1AD85FFD1F77951800359E2E /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1AD85FFB1F77923500359E2E /* StoreKit.framework */; };
 		1AF8A1BA1ABADF260062CE8A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 1AF8A1B91ABADF260062CE8A /* main.m */; };
 		1AF8A1BD1ABADF260062CE8A /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 1AF8A1BC1ABADF260062CE8A /* AppDelegate.m */; };
 		1AF8A1C01ABADF260062CE8A /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1AF8A1BF1ABADF260062CE8A /* ViewController.m */; };
@@ -69,6 +69,8 @@
 		1A56999F1ABBA06200269BD2 /* pig.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; name = pig.mp3; path = Includes/Sounds/pig.mp3; sourceTree = "<group>"; };
 		1A5699A01ABBA06200269BD2 /* sheep.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; name = sheep.mp3; path = Includes/Sounds/sheep.mp3; sourceTree = "<group>"; };
 		1A96326D1ABE841400CDBD98 /* Background16-9.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Background16-9.png"; sourceTree = "<group>"; };
+		1AD85FFB1F77923500359E2E /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
+		1AD85FFC1F77923800359E2E /* libPods-OurFarm.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = "libPods-OurFarm.a"; path = "../../../../Library/Developer/Xcode/DerivedData/OurFarm-ewcbujrenhcexxcwztgiftguyggg/Build/Products/Debug-iphoneos/libPods-OurFarm.a"; sourceTree = "<group>"; };
 		1AF8A1B41ABADF260062CE8A /* OurFarm.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = OurFarm.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		1AF8A1B81ABADF260062CE8A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		1AF8A1B91ABADF260062CE8A /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -80,7 +82,6 @@
 		1AF8A1C41ABADF260062CE8A /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		4DB6B695708E3DB8F8289E37 /* Pods-OurFarm.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-OurFarm.debug.xcconfig"; path = "Pods/Target Support Files/Pods-OurFarm/Pods-OurFarm.debug.xcconfig"; sourceTree = "<group>"; };
 		B7CDAEB1F6454E3601806B06 /* Pods-OurFarm.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-OurFarm.release.xcconfig"; path = "Pods/Target Support Files/Pods-OurFarm/Pods-OurFarm.release.xcconfig"; sourceTree = "<group>"; };
-		DFDF9A19C6929F1C011AA1AE /* libPods-OurFarm.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-OurFarm.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -89,7 +90,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				1A5699931ABB9E9E00269BD2 /* AVFoundation.framework in Frameworks */,
-				03FA352D62C2F07ED16A17D0 /* libPods-OurFarm.a in Frameworks */,
+				1AD85FFD1F77951800359E2E /* StoreKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -100,6 +101,8 @@
 			isa = PBXGroup;
 			children = (
 				1A5699921ABB9E9E00269BD2 /* AVFoundation.framework */,
+				1AD85FFB1F77923500359E2E /* StoreKit.framework */,
+				1AD85FFC1F77923800359E2E /* libPods-OurFarm.a */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -110,7 +113,6 @@
 				1AF8A1B61ABADF260062CE8A /* OurFarm */,
 				1AF8A1B51ABADF260062CE8A /* Products */,
 				6CE67E0D1B6905BD72D3EC38 /* Pods */,
-				82A9542B474D30541EB60EF1 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -221,14 +223,6 @@
 			name = Pods;
 			sourceTree = "<group>";
 		};
-		82A9542B474D30541EB60EF1 /* Frameworks */ = {
-			isa = PBXGroup;
-			children = (
-				DFDF9A19C6929F1C011AA1AE /* libPods-OurFarm.a */,
-			);
-			name = Frameworks;
-			sourceTree = "<group>";
-		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -264,6 +258,11 @@
 					1AF8A1B31ABADF260062CE8A = {
 						CreatedOnToolsVersion = 6.1.1;
 						DevelopmentTeam = D474HU5D6W;
+						SystemCapabilities = {
+							com.apple.InAppPurchase = {
+								enabled = 1;
+							};
+						};
 					};
 				};
 			};
