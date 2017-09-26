@@ -134,12 +134,18 @@ static NSString* const RemoveAdsInAppID = @"RemoveAds";
 
 - (void)showAdvert
 {
-    // Incremenet
-    [self incrementAdCountOrReset:NO];
+    // Check User Defaults
+    BOOL areAdsRemoved = [[NSUserDefaults standardUserDefaults] boolForKey:@"areAdsRemoved"];
     
-    if (self->pressCount > 3) {
-        if (self->interstitial.isReady) {
-            [self->interstitial presentFromRootViewController:self];
+    if (!areAdsRemoved) {
+        
+        // Incremenet
+        [self incrementAdCountOrReset:NO];
+        
+        if (self->pressCount > 3) {
+            if (self->interstitial.isReady) {
+                [self->interstitial presentFromRootViewController:self];
+            }
         }
     }
     
@@ -202,9 +208,32 @@ static NSString* const RemoveAdsInAppID = @"RemoveAds";
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
     
     if (buttonIndex == 0) {
-        NSLog(@"Remove Ads Pressed");
+        [self purchaseMyProduct:removeAddInAppProduct];
     } else {
         NSLog(@"Keep Ads Pressed");
+    }
+}
+
+- (BOOL)canMakePurchases
+{
+    return [SKPaymentQueue canMakePayments];
+}
+
+- (void)purchaseMyProduct:(SKProduct*)product
+{
+    if ([self canMakePurchases]) {
+        SKPayment *payment = [SKPayment paymentWithProduct:product];
+        [[SKPaymentQueue defaultQueue] addTransactionObserver:self];
+        [[SKPaymentQueue defaultQueue] addPayment:payment];
+    } else {
+        
+        NSString *title = @"Purchases are disabled in your device";
+        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:title
+                                                            message:nil
+                                                           delegate:self
+                                                  cancelButtonTitle:@"Ok"
+                                                  otherButtonTitles: nil];
+        [alertView show];
     }
 }
 
@@ -224,9 +253,31 @@ didFailWithError:(NSError *)error
     removeAddInAppProduct = nil;
 }
 
+- (void)paymentQueue:(SKPaymentQueue *)queue
+ updatedTransactions:(NSArray *)transactions
+{
+    for (SKPaymentTransaction *transaction in transactions) {
+        
+        switch (transaction.transactionState) {
+            case SKPaymentTransactionStatePurchased:
+                // User Purchased Ads
+                [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"areAdsRemoved"];
+                
+                [[SKPaymentQueue defaultQueue] finishTransaction:transaction];
+                break;
+                
+            case SKPaymentTransactionStateRestored:
+                // Restored Purchased
+                [[SKPaymentQueue defaultQueue] finishTransaction:transaction];
+                break;
+        }
+    }
+}
+
 - (void)viewDidLoad {
 	[super viewDidLoad];
     
+    // In App Purchase Load
     SKProductsRequest *productsRequest = [[SKProductsRequest alloc] initWithProductIdentifiers:[NSSet setWithObject:RemoveAdsInAppID]];
     productsRequest.delegate = self;
     [productsRequest start];
@@ -299,11 +350,6 @@ didFailWithError:(NSError *)error
 
 - (void)didReceiveMemoryWarning {
 	[super didReceiveMemoryWarning];
-}
-
-- (void)paymentQueue:(nonnull SKPaymentQueue *)queue updatedTransactions:(nonnull NSArray<SKPaymentTransaction *> *)transactions
-{
-    
 }
 
 @end
